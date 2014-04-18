@@ -12,13 +12,14 @@ import java.text.DecimalFormat;
  */
 public class Player {
     private String mName;
-    private double mAbs, mRuns, mSingles, mDoubles, mTriples, 
-            mHomeruns, mSacs, mWalks, mRbi;
+    private double mGames, mAbs, mRuns, mSingles, mDoubles, mTriples, 
+            mHomeruns, mSacs, mWalks, mRbi, mSos, mFos, mGidp;
     private static final DecimalFormat percentage = new DecimalFormat ("#.000");
     public static final String DELIM=" ";
 
     public Player(String name){
         mName=name;
+        mGames=0;
         mAbs=0;
         mRuns=0;
         mSingles=0;
@@ -31,9 +32,10 @@ public class Player {
     }
     
 
-    public Player(String name, double ab, double r, double s, double d, double t,
-            double h, double sa, double w, double rb){
+    public Player(String name, double g, double ab, double r, double s, double d, double t,
+            double h, double sa, double w, double rb, double so, double fo, double dp){
         mName=name;
+        mGames=g;
         mAbs=ab;
         mRuns=r;
         mSingles=s;
@@ -43,6 +45,9 @@ public class Player {
         mSacs=sa;
         mWalks=w;
         mRbi=rb;
+        mSos=so;
+        mFos=fo;
+        mGidp=dp;
     }
 
     public String getName() {
@@ -53,6 +58,14 @@ public class Player {
         this.mName = mName;
     }
 
+    public double getGames(){
+        return mGames;
+    }
+    
+    public void setGames(double mGames){
+        this.mGames = mGames;
+    }
+    
     public double getAbs() {
         return mAbs;
     }
@@ -124,6 +137,32 @@ public class Player {
     public void setRbi(double mRbi) {
         this.mRbi = mRbi;
     }
+
+    public double getSos() {
+        return mSos;
+    }
+
+    public void setSos(double mSos) {
+        this.mSos = mSos;
+    }
+
+    public double getFos() {
+        return mFos;
+    }
+
+    public void setFos(double mFos) {
+        this.mFos = mFos;
+    }
+
+    public double getGidp() {
+        return mGidp;
+    }
+
+    public void setGidp(double mGidp) {
+        this.mGidp = mGidp;
+    }
+    
+    
     
     public double getHits(){
         return mSingles+mDoubles+mTriples+mHomeruns;
@@ -151,10 +190,25 @@ public class Player {
     }
     
     public String toString(){
-        return mName+DELIM+(int)mAbs+DELIM+(int)getHits()+DELIM+(int)mWalks+DELIM+(int)mSingles+DELIM+(int)mDoubles
-                +DELIM+(int)mTriples+DELIM+(int)mHomeruns+DELIM+(int)mSacs+DELIM+percentage.format(getAverage())
-                +DELIM+percentage.format(getOBP())+DELIM+percentage.format(getSlugging())
-                +DELIM+(int)mRbi+DELIM+(int)mRuns;
+        return  mName+DELIM+
+                (int)mGames+DELIM+
+                (int)mAbs+DELIM+
+                (int)mRuns+DELIM+
+                (int)getHits()+DELIM+
+                (int)mSingles+DELIM+
+                (int)mDoubles+DELIM+
+                (int)mTriples+DELIM+
+                (int)mHomeruns+DELIM+
+                (int)mRbi+DELIM+
+                (int)mWalks+DELIM+
+                (int)mSacs+DELIM+
+                (int)mSos+DELIM+
+                (int)mFos+DELIM+
+                (int)mGidp+DELIM+              
+                percentage.format(getAverage())+DELIM+
+                percentage.format(getOBP())+DELIM+
+                percentage.format(getSlugging())+DELIM+
+                percentage.format(getOBP()+getSlugging());               
     }
     
 }
