@@ -41,6 +41,8 @@ public class SoftballStats {
             
             String line = "";
             Boolean header=true;
+            Player totals = new Player("TOTALS");
+
             while((line = reader.readLine()) != null){
                 if(header){header=false; continue;} // skips the header line
                     
@@ -58,7 +60,7 @@ public class SoftballStats {
                     player.setHomeruns(player.getHomeruns()+Integer.parseInt(stats[HR]));
                     player.setSacs(player.getSacs()+Integer.parseInt(stats[SAC]));
                     player.setWalks(player.getWalks()+Integer.parseInt(stats[BB]));
-                    player.setRbi(player.getRbi()+Integer.parseInt(stats[RBI]));
+                    player.setRbi(player.getRbi()+Integer.parseInt(stats[RBI]));                                  
                 }
                 else{
                     player = new Player(stats[NAME], Double.parseDouble(stats[AB]),
@@ -69,11 +71,22 @@ public class SoftballStats {
                     
                     players.put(player.getName(), player);                  
                 }
-            }
+                
+                totals.setAbs(totals.getAbs()+Integer.parseInt(stats[AB]));
+                totals.setRuns(totals.getRuns()+Integer.parseInt(stats[R]));
+                totals.setSingles(totals.getSingles()+Integer.parseInt(stats[SINGLE]));
+                totals.setDoubles(totals.getDoubles()+Integer.parseInt(stats[DOUBLE]));
+                totals.setTriples(totals.getTriples()+Integer.parseInt(stats[TRIPLE]));
+                totals.setHomeruns(totals.getHomeruns()+Integer.parseInt(stats[HR]));
+                totals.setSacs(totals.getSacs()+Integer.parseInt(stats[SAC]));
+                totals.setWalks(totals.getWalks()+Integer.parseInt(stats[BB]));
+                totals.setRbi(totals.getRbi()+Integer.parseInt(stats[RBI]));
+        }
             
-            for(Map.Entry<String, Player> player : players.entrySet()){         
+            for(Map.Entry<String, Player> player : players.entrySet()){
                 System.out.println(player.getValue());
             }
+            System.out.println(totals);
             
         } catch (IOException ex) {
             Logger.getLogger(SoftballStats.class.getName()).log(Level.SEVERE, null, ex);
