@@ -1,0 +1,14 @@
+name ab r 1b 2b 3b hr sac bb rbi
+mark 8 6 4 2 1 0 0 0 2
+jb 7 5 2 1 0 2 1 0 11
+dj 7 7 2 2 1 1 0 1 5
+charvat 8 5 3 2 1 0 0 0 8
+nick 7 3 6 1 0 0 0 0 2
+don 8 2 4 1 0 0 0 0 2
+brandon 7 3 3 1 2 0 0 0 1
+ray 7 5 5 0 0 0 0 1 1
+gus 6 4 4 0 0 0 0 0 3
+liska 7 5 3 0 0 0 0 1 1
+steve 6 3 6 0 0 0 1 0 3
+trevor 7 3 1 1 1 0 0 0 2
+chris 0 0 0 0 0 0 0 0 0 0
