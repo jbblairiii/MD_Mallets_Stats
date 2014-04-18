@@ -5,6 +5,7 @@
 package softballstats;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -33,58 +34,64 @@ public class SoftballStats {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        String filename = args[0];
+        String directoryName = args[0];
         Map<String, Player> players = new HashMap<String, Player>();
         
+        File directory = new File(directoryName);
+        File[] listOfFiles = directory.listFiles();
+        
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
             
-            String line = "";
-            Boolean header=true;
             Player totals = new Player("TOTALS");
+            for (File file : listOfFiles) {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
 
-            while((line = reader.readLine()) != null){
-                if(header){header=false; continue;} // skips the header line
-                    
-                // splits the file on commas and remove quotes
-                String[] stats = line.split(Player.DELIM); 
+                String line = "";
+                Boolean header=true;
                 
-                Player player=null;
-                if(players.containsKey(stats[NAME])){
-                    player=players.get(stats[NAME]);
-                    player.setAbs(player.getAbs()+Integer.parseInt(stats[AB]));
-                    player.setRuns(player.getRuns()+Integer.parseInt(stats[R]));
-                    player.setSingles(player.getSingles()+Integer.parseInt(stats[SINGLE]));
-                    player.setDoubles(player.getDoubles()+Integer.parseInt(stats[DOUBLE]));
-                    player.setTriples(player.getTriples()+Integer.parseInt(stats[TRIPLE]));
-                    player.setHomeruns(player.getHomeruns()+Integer.parseInt(stats[HR]));
-                    player.setSacs(player.getSacs()+Integer.parseInt(stats[SAC]));
-                    player.setWalks(player.getWalks()+Integer.parseInt(stats[BB]));
-                    player.setRbi(player.getRbi()+Integer.parseInt(stats[RBI]));                                  
-                }
-                else{
-                    player = new Player(stats[NAME], Double.parseDouble(stats[AB]),
-                            Double.parseDouble(stats[R]),Double.parseDouble(stats[SINGLE]),
-                           Double.parseDouble(stats[DOUBLE]),Double.parseDouble(stats[TRIPLE]),
-                            Double.parseDouble(stats[HR]),Double.parseDouble(stats[SAC]),
-                            Double.parseDouble(stats[BB]), Double.parseDouble(stats[RBI]));
-                    
-                    players.put(player.getName(), player);                  
-                }
-                
-                totals.setAbs(totals.getAbs()+Integer.parseInt(stats[AB]));
-                totals.setRuns(totals.getRuns()+Integer.parseInt(stats[R]));
-                totals.setSingles(totals.getSingles()+Integer.parseInt(stats[SINGLE]));
-                totals.setDoubles(totals.getDoubles()+Integer.parseInt(stats[DOUBLE]));
-                totals.setTriples(totals.getTriples()+Integer.parseInt(stats[TRIPLE]));
-                totals.setHomeruns(totals.getHomeruns()+Integer.parseInt(stats[HR]));
-                totals.setSacs(totals.getSacs()+Integer.parseInt(stats[SAC]));
-                totals.setWalks(totals.getWalks()+Integer.parseInt(stats[BB]));
-                totals.setRbi(totals.getRbi()+Integer.parseInt(stats[RBI]));
-        }
-            
+
+                while((line = reader.readLine()) != null){
+                    if(header){header=false; continue;} // skips the header line
+
+                    // splits the file on commas and remove quotes
+                    String[] stats = line.split(Player.DELIM); 
+
+                    Player player=null;
+                    if(players.containsKey(stats[NAME])){
+                        player=players.get(stats[NAME]);
+                        player.setAbs(player.getAbs()+Integer.parseInt(stats[AB]));
+                        player.setRuns(player.getRuns()+Integer.parseInt(stats[R]));
+                        player.setSingles(player.getSingles()+Integer.parseInt(stats[SINGLE]));
+                        player.setDoubles(player.getDoubles()+Integer.parseInt(stats[DOUBLE]));
+                        player.setTriples(player.getTriples()+Integer.parseInt(stats[TRIPLE]));
+                        player.setHomeruns(player.getHomeruns()+Integer.parseInt(stats[HR]));
+                        player.setSacs(player.getSacs()+Integer.parseInt(stats[SAC]));
+                        player.setWalks(player.getWalks()+Integer.parseInt(stats[BB]));
+                        player.setRbi(player.getRbi()+Integer.parseInt(stats[RBI]));                                  
+                    }
+                    else{
+                        player = new Player(stats[NAME], Double.parseDouble(stats[AB]),
+                                Double.parseDouble(stats[R]),Double.parseDouble(stats[SINGLE]),
+                                Double.parseDouble(stats[DOUBLE]),Double.parseDouble(stats[TRIPLE]),
+                                Double.parseDouble(stats[HR]),Double.parseDouble(stats[SAC]),
+                                Double.parseDouble(stats[BB]), Double.parseDouble(stats[RBI]));
+
+                        players.put(player.getName(), player);                  
+                    }
+
+                    totals.setAbs(totals.getAbs()+Integer.parseInt(stats[AB]));
+                    totals.setRuns(totals.getRuns()+Integer.parseInt(stats[R]));
+                    totals.setSingles(totals.getSingles()+Integer.parseInt(stats[SINGLE]));
+                    totals.setDoubles(totals.getDoubles()+Integer.parseInt(stats[DOUBLE]));
+                    totals.setTriples(totals.getTriples()+Integer.parseInt(stats[TRIPLE]));
+                    totals.setHomeruns(totals.getHomeruns()+Integer.parseInt(stats[HR]));
+                    totals.setSacs(totals.getSacs()+Integer.parseInt(stats[SAC]));
+                    totals.setWalks(totals.getWalks()+Integer.parseInt(stats[BB]));
+                    totals.setRbi(totals.getRbi()+Integer.parseInt(stats[RBI]));
+                }     
+            }
             for(Map.Entry<String, Player> player : players.entrySet()){
-                System.out.println(player.getValue());
+                    System.out.println(player.getValue());
             }
             System.out.println(totals);
             
