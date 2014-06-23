@@ -29,10 +29,10 @@ public class SoftballStats {
     private static final int DOUBLE=5;
     private static final int TRIPLE=6;
     private static final int HR=7;
-    private static final int SAC=8;
-    private static final int BB=9;
-    private static final int RBI=10;
-    private static final int SO=11;
+    private static final int BB=8;
+    private static final int RBI=9;
+    private static final int SO=10;
+    private static final int SAC=11;
     private static final int FO=12;
     private static final int GIDP=13;
     /**
@@ -61,7 +61,7 @@ public class SoftballStats {
 
                 while((line = reader.readLine()) != null){
                     if(header){
-                        if(line.equalsIgnoreCase("stats")){
+                        if(line.equalsIgnoreCase("name g a r s d t hr bb rbi so sac fo gidp")){
                             header=false; 
                             continue;
                         }
@@ -85,9 +85,9 @@ public class SoftballStats {
                         player.setSacs(player.getSacs()+Integer.parseInt(stats[SAC]));
                         player.setWalks(player.getWalks()+Integer.parseInt(stats[BB]));
                         player.setRbi(player.getRbi()+Integer.parseInt(stats[RBI]));
-                        player.setSos(player.getRbi()+Integer.parseInt(stats[SO]));  
-                        player.setFos(player.getRbi()+Integer.parseInt(stats[FO]));  
-                        player.setGidp(player.getRbi()+Integer.parseInt(stats[GIDP]));  
+                        player.setSos(player.getSos()+Integer.parseInt(stats[SO]));  
+                        player.setFos(player.getFos()+Integer.parseInt(stats[FO]));  
+                        player.setGidp(player.getGidp()+Integer.parseInt(stats[GIDP]));  
                     }
                     else{
                         player = new Player(stats[NAME], Double.parseDouble(stats[GAME]),
@@ -100,7 +100,7 @@ public class SoftballStats {
                                 Double.parseDouble(stats[GIDP]));
 
                         players.put(player.getName(), player);                  
-                    }
+                    }     
 
                     totals.setAbs(totals.getAbs()+Integer.parseInt(stats[AB]));
                     totals.setRuns(totals.getRuns()+Integer.parseInt(stats[R]));
@@ -111,6 +111,9 @@ public class SoftballStats {
                     totals.setSacs(totals.getSacs()+Integer.parseInt(stats[SAC]));
                     totals.setWalks(totals.getWalks()+Integer.parseInt(stats[BB]));
                     totals.setRbi(totals.getRbi()+Integer.parseInt(stats[RBI]));
+                    totals.setSos(totals.getSos()+Integer.parseInt(stats[SO]));
+                    totals.setFos(totals.getFos()+Integer.parseInt(stats[FO]));
+                    totals.setGidp(totals.getGidp()+Integer.parseInt(stats[GIDP]));
                 }     
             }
             writer.println("NAME G AB R H 1B 2B 3B HR RBI BB SF SO FO GIDP AVG OBP SLG OPS");
